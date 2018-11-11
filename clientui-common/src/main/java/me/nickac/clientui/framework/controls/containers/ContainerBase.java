@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContainerBase extends ControlBase {
-    private Event<IControl> childAddedEvent = Event.createEvent();
-    private Event<IControl> childRemovedEvent = Event.createEvent();
     private List<IControl> childControls = new ArrayList<>();
+    private Event<IControl> childAddedEvent = Event.createEvent(this::addControlIfNotExists);
+    private Event<IControl> childRemovedEvent = Event.createEvent(val -> childControls.remove(val));
 
     public ContainerBase(PointF location, SizeF size) {
         super(location, size);
@@ -50,5 +50,10 @@ public class ContainerBase extends ControlBase {
         super.dispose();
         childAddedEvent.dispose();
         childRemovedEvent.dispose();
+    }
+
+    private void addControlIfNotExists(IControl val) {
+        if (!childControls.contains(val))
+            childControls.add(val);
     }
 }

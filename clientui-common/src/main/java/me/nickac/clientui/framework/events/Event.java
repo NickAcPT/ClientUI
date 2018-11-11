@@ -8,11 +8,17 @@ import java.util.List;
 import java.util.UUID;
 
 public class Event<T> {
-    private static IEventRegistrationHandler registrationHandler;
+    private transient static IEventRegistrationHandler registrationHandler;
     private UUID uuid;
     private transient List<EventHandler<T>> handlers = new ArrayList<>();
+    private transient EventHandler<T> setValueMethod;
 
     protected Event() {
+        this(null);
+    }
+
+    protected Event(EventHandler<T> setValue) {
+        setValueMethod = setValue;
         uuid = UUID.randomUUID();
         getRegistrationHandler().register(this);
     }
@@ -29,6 +35,10 @@ public class Event<T> {
         return new Event<>();
     }
 
+    public static <T> Event<T> createEvent(EventHandler<T> setValue) {
+        return new Event<>(setValue);
+    }
+
     public UUID getUniqueId() {
         return uuid;
     }
@@ -39,7 +49,12 @@ public class Event<T> {
 
     public void invoke(T obj) {
         Event.getRegistrationHandler().raiseEvent(this, obj);
+        invokeLocal(obj);
+    }
+
+    public void invokeLocal(T obj) {
         handlers.forEach(h -> h.handle(obj));
+        if (setValueMethod != null) setValueMethod.handle(obj);
     }
 
     public void invoke() {

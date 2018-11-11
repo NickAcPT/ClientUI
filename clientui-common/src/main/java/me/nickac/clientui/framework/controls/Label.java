@@ -8,7 +8,7 @@ import me.nickac.clientui.types.SizeF;
 
 public class Label extends ControlBase {
     private Color foregroundColor = DefaultColors.WHITE;
-    private Event<Color> foregroundColorChangedEvent = Event.createEvent();
+    private Event<Color> foregroundColorChangedEvent = Event.createEvent(val -> foregroundColor = val);
 
     public Label(String text) {
         setText(text);

@@ -3,6 +3,7 @@ package me.nickac.clientui.events;
 import me.nickac.clientui.ClientUIPaper;
 import me.nickac.clientui.framework.controls.Label;
 import me.nickac.clientui.framework.controls.containers.Window;
+import me.nickac.clientui.types.DefaultColors;
 import me.nickac.clientui.wm.WindowManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,6 +32,7 @@ public class PlayerEventsHandler implements Listener {
             wnd.addControl(label);
 
             wnd.getWindowOpenedEvent().addHandler(() -> event.getPlayer().sendMessage("Window has been opened!"));
+            wnd.getWindowOpenedEvent().addHandler(() -> label.setForegroundColor(DefaultColors.DARK_GREEN));
             wnd.getWindowClosedEvent().addHandler(() -> event.getPlayer().sendMessage("Window has been closed!"));
 
             WindowManager.getInstance().showWindow(event.getPlayer(), wnd);

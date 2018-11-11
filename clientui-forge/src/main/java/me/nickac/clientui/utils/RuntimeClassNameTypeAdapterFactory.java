@@ -18,9 +18,9 @@ import java.util.Map;
 
 /**
  * <p>
- * Disclaimer: taken from here https://stackoverflow.com/a/40133286/285091 with some modifications
+ *  Disclaimer: taken from here https://stackoverflow.com/a/40133286/285091 with some modifications
  * </p>
- * <p>
+ *
  * Adapts values whose runtime type may differ from their declaration type. This
  * is necessary when a field's type is not the same type that GSON should create
  * when deserializing that field. For example, consider these types:

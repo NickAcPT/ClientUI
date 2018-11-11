@@ -39,7 +39,12 @@ public class ClientUIForge {
     private PacketManager packetManager;
     private Gson gson;
     private WindowManager windowManager;
+    private EventDealerHandler eventHandler;
     //endregion
+
+    public static Gson getGson() {
+        return INSTANCE.gson;
+    }
 
     //region Network stuff
     public PacketHandler getPacketHandler() {
@@ -53,26 +58,28 @@ public class ClientUIForge {
     public PacketManager getPacketManager() {
         return packetManager;
     }
-    //endregion
 
+    //endregion
 
     //region Helper methods
     public WindowManager getWindowManager() {
         return windowManager;
     }
 
-    public static Gson getGson() {
-        return INSTANCE.gson;
+    public EventDealerHandler getEventHandler() {
+        return eventHandler;
     }
+
     //endregion
 
     //region Forge Stuff
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
-        gson = new GsonBuilder().registerTypeAdapterFactory(RuntimeClassNameTypeAdapterFactory.of(Object.class)).create();
+        gson = new GsonBuilder()/*.registerTypeHierarchyAdapter(Event.class, new EventTypeAdapter())*/.registerTypeAdapterFactory(RuntimeClassNameTypeAdapterFactory.of(Object.class)).create();
         packetHandler = new PacketHandler();
         packetManager = new PacketManager();
-        Event.setRegistrationHandler(new EventDealerHandler());
+        eventHandler = new EventDealerHandler();
+        Event.setRegistrationHandler(eventHandler);
     }
 
     @Mod.EventHandler

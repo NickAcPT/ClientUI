@@ -14,8 +14,8 @@ public class ControlBase extends IControl {
     private Object tag;
 
     //region Events
-    private Event<PointF> locationChangedEvent = Event.createEvent();
-    private Event<SizeF> sizeChangedEvent = Event.createEvent();
+    private Event<PointF> locationChangedEvent = Event.createEvent(val -> location = val);
+    private Event<SizeF> sizeChangedEvent = Event.createEvent(val -> size = val);
     //endregion
 
     protected ControlBase() {

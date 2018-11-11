@@ -2,9 +2,12 @@ package me.nickac.clientui.managers;
 
 import me.nickac.clientui.framework.events.Event;
 import me.nickac.clientui.framework.events.registration.IEventRegistrationHandler;
+import me.nickac.clientui.networking.packets.EventNotifyPacket;
 
 import java.util.HashMap;
 import java.util.UUID;
+
+import static me.nickac.clientui.ClientUIPaper.getClientsManager;
 
 public class EventsRegistrationManager implements IEventRegistrationHandler {
 
@@ -22,6 +25,7 @@ public class EventsRegistrationManager implements IEventRegistrationHandler {
 
     @Override
     public void raiseEvent(Event event, Object obj) {
+        getClientsManager().broadcastPacket(new EventNotifyPacket(event, obj));
     }
 
     public Event getEventById(UUID uuid) {

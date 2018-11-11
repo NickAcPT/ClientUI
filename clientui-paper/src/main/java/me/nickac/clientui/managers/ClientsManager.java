@@ -5,6 +5,7 @@ import io.netty.buffer.Unpooled;
 import me.nickac.clientui.ClientUIPaper;
 import me.nickac.clientui.framework.Constants;
 import me.nickac.clientui.networking.IPacket;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -41,5 +42,14 @@ public class ClientsManager {
         buffer.writeByte(ClientUIPaper.getPluginMessageManager().getMessageNumberFromClass(packet.getClass()));
         packet.toBytes(buffer);
         p.sendPluginMessage(ClientUIPaper.getInstance(), Constants.PLUGIN_MESSAGE_NAME, buffer.array());
+    }
+
+    public void broadcastPacket(IPacket packet) {
+        ByteBuf buffer = Unpooled.buffer();
+        buffer.writeByte(ClientUIPaper.getPluginMessageManager().getMessageNumberFromClass(packet.getClass()));
+        packet.toBytes(buffer);
+        byte[] array = buffer.array();
+        playersUsingMod.forEach(p ->
+                Bukkit.getPlayer(p).sendPluginMessage(ClientUIPaper.getInstance(), Constants.PLUGIN_MESSAGE_NAME, array));
     }
 }
