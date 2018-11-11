@@ -1,0 +1,33 @@
+repositories {
+    maven {
+        name = 'destroystokyo-repo'
+        url = 'https://repo.destroystokyo.com/repository/maven-public/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+dependencies {
+    compile project(':clientui-common')
+    compile 'com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT'
+    compile group: 'io.netty', name: 'netty-buffer', version: '4.1.31.Final'
+}
+
+processResources {
+    expand 'version': project.version
+}
+
+build << {
+    ant.delete {
+        fileset(dir: shadowJar.destinationDir, includes: '*-all.jar')
+    }
+}
+
+shadowJar {
+    destinationDir = file("D:\\PaperServer\\plugins")
+    dependencies {
+        include(dependency(':clientui-common'))
+    }
+}

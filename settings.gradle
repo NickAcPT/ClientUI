@@ -1,0 +1,3 @@
+rootProject.name = 'clientui'
+
+include 'clientui-common', 'clientui-paper', 'clientui-forge'
