@@ -35,7 +35,7 @@ dependencies {
     runtimeClasspath files("${shadowJar.destinationDir}\\${modBaseName}-${version}.jar")
     runtime files("${shadowJar.destinationDir}")
     compile project(":clientui-common")
-    implementation 'com.google.code.gson:gson:2.8.5'
+    compile 'com.gilecode.yagson:yagson:0.4'
 }
 
 processResources {

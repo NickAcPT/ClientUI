@@ -1,5 +1,7 @@
 package me.nickac.clientui.framework.events;
 
-public interface EventHandler<TK> {
+import java.io.Serializable;
+
+public interface EventHandler<TK> extends Serializable {
     void handle(TK obj);
 }

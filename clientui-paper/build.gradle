@@ -11,8 +11,9 @@ repositories {
 
 dependencies {
     compile project(':clientui-common')
-    compile 'com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT'
+    implementation 'com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT'
     compile group: 'io.netty', name: 'netty-buffer', version: '4.1.31.Final'
+    compile 'com.gilecode.yagson:yagson:0.4'
 }
 
 processResources {
@@ -26,8 +27,9 @@ build << {
 }
 
 shadowJar {
+    configurations = [project.configurations.compile]
     destinationDir = file("D:\\PaperServer\\plugins")
-    dependencies {
+    /*dependencies {
         include(dependency(':clientui-common'))
-    }
+    }*/
 }

@@ -11,7 +11,7 @@ public class Event<T> {
     private transient static IEventRegistrationHandler registrationHandler;
     private UUID uuid;
     private transient List<EventHandler<T>> handlers = new ArrayList<>();
-    private transient EventHandler<T> setValueMethod;
+    private EventHandler<T> setValueMethod;
 
     protected Event() {
         this(null);
@@ -64,4 +64,5 @@ public class Event<T> {
     public void dispose() {
         getRegistrationHandler().unregister(this);
     }
+
 }
