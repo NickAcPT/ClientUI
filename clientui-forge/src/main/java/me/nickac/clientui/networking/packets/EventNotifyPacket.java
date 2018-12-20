@@ -6,7 +6,6 @@ import me.nickac.clientui.framework.annotations.PacketDescriptor;
 import me.nickac.clientui.framework.events.Event;
 import me.nickac.clientui.networking.IPacket;
 import me.nickac.clientui.utils.ByteBufUtils;
-import me.nickac.clientui.utils.EventRegistryHelper;
 
 import java.nio.ByteBuffer;
 import java.util.UUID;
@@ -50,7 +49,6 @@ public class EventNotifyPacket implements IPacket {
             String json = ByteBufUtils.readString(buf);
             try {
                 objVal = getGson().fromJson(json, Class.forName(className));
-                EventRegistryHelper.registerEventsRecursive(objVal);
             } catch (JsonSyntaxException | ClassNotFoundException e) {
                 System.err.println("Unable to update value of control sent by event.");
                 System.err.printf("JSON: %s%n", json);

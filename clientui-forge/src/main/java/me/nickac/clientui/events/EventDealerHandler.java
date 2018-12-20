@@ -24,6 +24,7 @@ public class EventDealerHandler implements IEventRegistrationHandler {
 
     @Override
     public void register(Event event) {
+        System.out.printf("Registered event %s for UUID %s%n", event.getClass().getName(), event.getUniqueId());
         registeredEvents.put(event.getUniqueId(), event);
     }
 

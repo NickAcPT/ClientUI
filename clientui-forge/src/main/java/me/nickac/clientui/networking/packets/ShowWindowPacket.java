@@ -7,7 +7,6 @@ import me.nickac.clientui.framework.annotations.PacketDescriptor;
 import me.nickac.clientui.framework.controls.containers.Window;
 import me.nickac.clientui.networking.IPacket;
 import me.nickac.clientui.utils.ByteBufUtils;
-import me.nickac.clientui.utils.EventRegistryHelper;
 import me.nickac.clientui.utils.ModCoderPackUtils;
 
 import static me.nickac.clientui.ClientUIForge.getGson;
@@ -21,7 +20,6 @@ public class ShowWindowPacket implements IPacket {
         String json = ByteBufUtils.readString(buf);
         try {
             window = getGson().fromJson(json, Window.class);
-            EventRegistryHelper.registerEventsRecursive(window);
         } catch (JsonSyntaxException e) {
             System.err.println("Unable to parse JSON sent by the server.");
             System.err.println("Input: " + json);

@@ -99,8 +99,6 @@ public class ClientUIForge {
                 return false;
             }
         }).create();
-        //gson = new YaGsonBuilder()/*.registerTypeHierarchyAdapter(Event.class, new EventTypeAdapter())*//*
-        // .registerTypeAdapterFactory(RuntimeClassNameTypeAdapterFactory.of(Object.class))*/.create();
         packetHandler = new PacketHandler();
         packetManager = new PacketManager();
         eventHandler = new EventDealerHandler();

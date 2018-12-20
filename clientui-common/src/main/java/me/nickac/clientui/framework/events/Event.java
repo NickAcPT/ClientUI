@@ -3,6 +3,7 @@ package me.nickac.clientui.framework.events;
 import me.nickac.clientui.framework.events.registration.IEventRegistrationHandler;
 import me.nickac.clientui.framework.events.registration.NoOpRegistrationHandler;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -63,6 +64,11 @@ public class Event<T> {
 
     public void dispose() {
         getRegistrationHandler().unregister(this);
+    }
+
+    @PostConstruct
+    protected void automaticEventRegistry() {
+        getRegistrationHandler().register(this);
     }
 
 }
