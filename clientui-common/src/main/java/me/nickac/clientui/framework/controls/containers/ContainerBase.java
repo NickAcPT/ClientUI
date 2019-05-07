@@ -35,7 +35,6 @@ public class ContainerBase extends ControlBase {
     }
 
     public void addControl(IControl ctrl) {
-        childControls.add(ctrl);
         childAddedEvent.invoke(ctrl);
     }
 

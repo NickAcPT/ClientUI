@@ -1,9 +1,6 @@
 package me.nickac.clientui;
 
 import com.gilecode.yagson.YaGson;
-import com.gilecode.yagson.YaGsonBuilder;
-import com.gilecode.yagson.com.google.gson.ExclusionStrategy;
-import com.gilecode.yagson.com.google.gson.FieldAttributes;
 import me.nickac.clientui.events.EventDealerHandler;
 import me.nickac.clientui.events.NetworkEventHandler;
 import me.nickac.clientui.framework.Constants;
@@ -13,6 +10,7 @@ import me.nickac.clientui.networking.PacketManager;
 import me.nickac.clientui.networking.packets.EventNotifyPacket;
 import me.nickac.clientui.networking.packets.InfoPacket;
 import me.nickac.clientui.networking.packets.ShowWindowPacket;
+import me.nickac.clientui.utils.MiscUtils;
 import me.nickac.clientui.wm.WindowManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -21,8 +19,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-
-import java.lang.reflect.Modifier;
 
 @Mod(
         modid = ClientUIForge.MOD_ID,
@@ -78,27 +74,7 @@ public class ClientUIForge {
     //region Forge Stuff
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
-        gson = new YaGsonBuilder().addSerializationExclusionStrategy(new ExclusionStrategy() {
-            @Override
-            public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-                return fieldAttributes.hasModifier(Modifier.TRANSIENT);
-            }
-
-            @Override
-            public boolean shouldSkipClass(Class<?> aClass) {
-                return false;
-            }
-        }).addDeserializationExclusionStrategy(new ExclusionStrategy() {
-            @Override
-            public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-                return fieldAttributes.hasModifier(Modifier.TRANSIENT);
-            }
-
-            @Override
-            public boolean shouldSkipClass(Class<?> aClass) {
-                return false;
-            }
-        }).create();
+        gson = MiscUtils.createGsonInstance();
         packetHandler = new PacketHandler();
         packetManager = new PacketManager();
         eventHandler = new EventDealerHandler();

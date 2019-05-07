@@ -36,8 +36,6 @@ dependencies {
     runtimeClasspath files("${shadowJar.destinationDir}\\${modBaseName}-${version}.jar")
     runtime files("${shadowJar.destinationDir}")
     compile project(":clientui-common")
-    compile 'com.gilecode.yagson:yagson:0.4'
-    compile "net.oneandone.reflections8:reflections8:0.10.5"
 }
 
 processResources {

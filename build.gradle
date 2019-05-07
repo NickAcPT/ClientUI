@@ -22,5 +22,8 @@ subprojects {
     repositories {
         mavenCentral()
     }
-}
 
+    dependencies {
+        compile 'com.gilecode.yagson:yagson:0.4'
+    }
+}

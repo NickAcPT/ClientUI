@@ -1,9 +1,12 @@
 package me.nickac.clientui.framework.controls;
 
+import com.gilecode.yagson.com.google.gson.annotations.JsonAdapter;
 import me.nickac.clientui.framework.events.Event;
 import me.nickac.clientui.types.PointF;
 import me.nickac.clientui.types.SizeF;
+import me.nickac.clientui.utils.ControlReference;
 
+import javax.annotation.PostConstruct;
 import java.util.UUID;
 
 public class ControlBase extends IControl {
@@ -12,11 +15,11 @@ public class ControlBase extends IControl {
     private SizeF size;
     private String text;
     private Object tag;
-
+    @JsonAdapter(ControlReference.class)
+    private ControlBase parent;
     //region Events
     private Event<PointF> locationChangedEvent = Event.createEvent(val -> location = val);
     private Event<SizeF> sizeChangedEvent = Event.createEvent(val -> size = val);
-    //endregion
 
     protected ControlBase() {
         uuid = UUID.randomUUID();
@@ -27,9 +30,18 @@ public class ControlBase extends IControl {
         this.location = location;
         this.size = size;
     }
+    //endregion
 
     public ControlBase(float x, float y, float width, float height) {
         this(new PointF(x, y), new SizeF(width, height));
+    }
+
+    public IControl getParent() {
+        return parent;
+    }
+
+    public void setParent(ControlBase parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -89,5 +101,10 @@ public class ControlBase extends IControl {
 
     public Event<SizeF> getSizeChangedEvent() {
         return sizeChangedEvent;
+    }
+
+    @PostConstruct
+    protected void registerControl() {
+
     }
 }
